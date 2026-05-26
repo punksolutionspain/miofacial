@@ -9,7 +9,9 @@ export default async function handler(req, res) {
   if (!text || typeof text !== 'string' || text.trim().length === 0)
     return res.status(400).json({ error: 'Falta el texto' });
 
-  const VOICE_ID = 'jQrhxsqzG6CPKo3ll0w9';
+  // Rachel — voz Default de ElevenLabs, disponible en plan gratuito
+  // eleven_multilingual_v2 habla en español de forma natural
+  const VOICE_ID = '21m00Tcm4TlvDq8ikWAM';
   const API_KEY  = process.env.ELEVENLABS_KEY;
   if (!API_KEY) return res.status(500).json({ error: 'API key no configurada en Vercel' });
 
@@ -20,10 +22,18 @@ export default async function handler(req, res) {
       body: JSON.stringify({
         text: text.trim(),
         model_id: 'eleven_multilingual_v2',
-        voice_settings: { stability: 0.50, similarity_boost: 0.80, style: 0.20, use_speaker_boost: true },
+        voice_settings: {
+          stability: 0.55,
+          similarity_boost: 0.75,
+          style: 0.15,
+          use_speaker_boost: true,
+        },
       }),
     });
-    if (!r.ok) return res.status(r.status).json({ error: await r.text() });
+    if (!r.ok) {
+      const errText = await r.text();
+      return res.status(r.status).json({ error: errText });
+    }
     const buf = await r.arrayBuffer();
     res.setHeader('Content-Type', 'audio/mpeg');
     res.setHeader('Cache-Control', 'public, max-age=3600');
