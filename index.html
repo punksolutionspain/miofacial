@@ -260,11 +260,12 @@ body { font-family:'Nunito',sans-serif; min-height:100vh; overflow-x:hidden; bac
       <div class="dur-btn"        data-dur="90"  onclick="setDur(90)">1:30</div>
       <div class="dur-btn"        data-dur="120" onclick="setDur(120)">2min</div>
     </div>
-    <div class="setup-section-title">🔊 VOZ (ElevenLabs)</div>
+    <div class="setup-section-title">🔊 VOZ</div>
     <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
-      <span class="voice-status loading" id="voiceStatus">⏳ Verificando...</span>
-      <button class="cam-btn" onclick="testVoice()">▶ Probar voz</button>
+      <select id="voiceSelect" onchange="pickVoice(this.value)" style="flex:1;min-width:0;font-family:'Press Start 2P',monospace;font-size:7px;background:rgba(0,0,0,0.5);color:rgba(255,255,255,0.75);border:2px solid rgba(255,255,255,0.2);border-radius:8px;padding:7px 8px;cursor:pointer;"><option>Cargando voces…</option></select>
+      <button class="cam-btn" onclick="testVoice()">▶ Probar</button>
     </div>
+    <div style="margin-top:6px;"><span class="voice-status loading" id="voiceStatus">⏳ Cargando…</span></div>
     <div class="setup-section-title">📷 CÁMARA</div>
     <div class="camera-row">
       <div class="cam-preview hidden" id="camPreview">
@@ -336,53 +337,105 @@ body { font-family:'Nunito',sans-serif; min-height:100vh; overflow-x:hidden; bac
 
 <script>
 // ═══════════════════════════════════════
-// ELEVENLABS TTS
+// VOZ DEL NAVEGADOR (es) — afinada para sonar natural
 // ═══════════════════════════════════════
-const TTS_ENDPOINT = '/api/tts';
-let ttsReady = false;
-let currentAudio = null;
+let voiceList = [], selVoice = null, ttsKeepAlive = null, audioUnlocked = false;
+const VOICE_PREF_KEY = 'miofacialVoice';
 
-async function speak(text) {
-  if (!text) return;
-  try {
-    if (currentAudio) { currentAudio.pause(); currentAudio = null; }
-    const res = await fetch(TTS_ENDPOINT, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ text }),
-    });
-    if (!res.ok) return;
-    const blob = await res.blob();
-    const url = URL.createObjectURL(blob);
-    currentAudio = new Audio(url);
-    currentAudio.onended = () => URL.revokeObjectURL(url);
-    await currentAudio.play();
-  } catch(e) { console.warn('TTS error:', e); }
+// Puntúa cada voz: cuanto más alta, más natural suele sonar.
+function voiceScore(v) {
+  const n = (v.name || '').toLowerCase();
+  const lang = (v.lang || '').toLowerCase();
+  let s = 0;
+  if (lang.startsWith('es')) s += 50;
+  if (lang === 'es-es') s += 8;                                  // castellano
+  if (/natural|neural|premium|enhanced|online|wavenet/.test(n)) s += 30;  // motores de calidad
+  if (n.includes('google')) s += 20;                             // las de Google suenan muy bien
+  if (/m[oó]nica|paulina|elvira|dalia|helena|laura|sabina|luc[ií]a|jimena/.test(n)) s += 12;
+  if (n.includes('female') || n.includes('mujer')) s += 4;
+  return s;
 }
 
-async function checkTTS() {
+function loadVoices() {
+  if (!window.speechSynthesis) return;
+  voiceList = speechSynthesis.getVoices();
+  if (!voiceList.length) return;
+  let saved = null; try { saved = localStorage.getItem(VOICE_PREF_KEY); } catch(e) {}
+  if (saved) selVoice = voiceList.find(v => v.name === saved) || null;
+  if (!selVoice || !voiceList.includes(selVoice)) {
+    const es = voiceList.filter(v => (v.lang || '').toLowerCase().startsWith('es'));
+    const pool = es.length ? es : voiceList;
+    selVoice = pool.slice().sort((a, b) => voiceScore(b) - voiceScore(a))[0] || null;
+  }
+  buildVoiceSelect();
+}
+
+function buildVoiceSelect() {
+  const sel = document.getElementById('voiceSelect');
+  if (!sel) return;
+  const es = voiceList.filter(v => (v.lang || '').toLowerCase().startsWith('es'));
+  const list = (es.length ? es : voiceList).slice().sort((a, b) => voiceScore(b) - voiceScore(a));
+  sel.innerHTML = '';
+  if (!list.length) { sel.innerHTML = '<option>Sin voces</option>'; }
+  else list.forEach(v => {
+    const o = document.createElement('option');
+    o.value = v.name; o.textContent = v.name + ' (' + v.lang + ')';
+    if (v === selVoice) o.selected = true;
+    sel.appendChild(o);
+  });
   const st = document.getElementById('voiceStatus');
-  try {
-    const res = await fetch(TTS_ENDPOINT, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ text: 'ok' }),
-    });
-    if (res.ok) {
-      ttsReady = true;
-      st.textContent = '✅ ElevenLabs lista';
-      st.className = 'voice-status ok';
-    } else {
-      st.textContent = '❌ Error de API';
-      st.className = 'voice-status error';
-    }
-  } catch(e) {
-    st.textContent = '⚠️ Sin conexión';
-    st.className = 'voice-status error';
+  if (st) {
+    if (selVoice) { st.textContent = '🔊 ' + selVoice.name.replace(/\s*\(.*\)\s*/, '').trim(); st.className = 'voice-status ok'; }
+    else { st.textContent = '🔇 Sin voz'; st.className = 'voice-status error'; }
   }
 }
 
+function pickVoice(name) {
+  selVoice = voiceList.find(v => v.name === name) || selVoice;
+  try { localStorage.setItem(VOICE_PREF_KEY, name); } catch(e) {}
+  buildVoiceSelect();
+  unlockAudio();
+  speak('Hola ' + PROFILES[currentPlayer].name + '. Esta es mi voz.');
+}
+
+if (window.speechSynthesis) {
+  speechSynthesis.onvoiceschanged = loadVoices;
+  let vt = 0; const vp = setInterval(() => { loadVoices(); if (voiceList.length || ++vt > 15) clearInterval(vp); }, 250);
+}
+
+// Desbloquea el audio en el primer toque (políticas de autoplay)
+function unlockAudio() {
+  if (audioUnlocked || !window.speechSynthesis) return;
+  audioUnlocked = true;
+  try { const u = new SpeechSynthesisUtterance(' '); u.volume = 0; speechSynthesis.speak(u); speechSynthesis.resume(); } catch(e) {}
+}
+['pointerdown','touchstart','click'].forEach(ev => window.addEventListener(ev, unlockAudio, { once:true }));
+
+// rate ~0.97 y pitch 1.0 = lo más natural; nada de pitch alto que suena a dibujo animado.
+function speak(text, { rate = 0.97, pitch = 1.0 } = {}) {
+  if (!text || !window.speechSynthesis) return;
+  try {
+    speechSynthesis.resume();      // desatasca el motor si quedó pausado (bug de Chrome)
+    speechSynthesis.cancel();
+    const u = new SpeechSynthesisUtterance(text);
+    u.lang = (selVoice && selVoice.lang) || 'es-ES';
+    u.rate = rate; u.pitch = pitch;
+    if (selVoice) u.voice = selVoice;
+    u.onend = u.onerror = () => clearInterval(ttsKeepAlive);
+    setTimeout(() => {             // cancel()+speak() inmediato se pisan en Chrome
+      speechSynthesis.speak(u);
+      speechSynthesis.resume();
+      clearInterval(ttsKeepAlive);
+      ttsKeepAlive = setInterval(() => {
+        if (speechSynthesis.speaking) speechSynthesis.resume();
+        else clearInterval(ttsKeepAlive);
+      }, 4000);
+    }, 60);
+  } catch(e) {}
+}
+
 function testVoice() {
+  unlockAudio();
   speak('Sube toda la lengua al paladar. Boca cerrada. ¡Muy bien!');
 }
 
@@ -526,7 +579,7 @@ function selectPlayer(p) {
   G.duration=30; G.timeLeft=30; G.totalTime=30;
   updateTimerDisplay(); updateProgressBar();
   showScreen('screenGame');
-  checkTTS();
+  loadVoices();
 }
 function applyTheme() {
   const g=document.getElementById('screenGame');
