@@ -22,33 +22,47 @@ body { font-family:'Nunito',sans-serif; min-height:100vh; overflow-x:hidden; bac
 .player-card { width:200px; border-radius:20px; padding:28px 20px 22px; cursor:pointer; transition:transform .2s,box-shadow .2s; position:relative; text-align:center; border:3px solid transparent; }
 .player-card:hover { transform:translateY(-8px) scale(1.03); }
 .player-card:active { transform:scale(.97); }
-.card-hector { background:linear-gradient(160deg,#1a0a3a,#2d1060 60%,#1a0a3a); border-color:#a855f7; box-shadow:0 8px 40px rgba(168,85,247,.4); }
-.card-hector:hover { box-shadow:0 16px 60px rgba(168,85,247,.7); }
-.card-gael { background:linear-gradient(160deg,#0a2a0a,#1a4a0a 60%,#0a2a0a); border-color:#4ade80; box-shadow:0 8px 40px rgba(74,222,128,.4); }
-.card-gael:hover { box-shadow:0 16px 60px rgba(74,222,128,.7); }
+.card-arcade  { background:linear-gradient(160deg,#0b2a6b,#1e3a8a 55%,#3d1a00); border-color:#fbbf24; box-shadow:0 8px 40px rgba(251,191,36,.4); }
+.card-arcade:hover  { box-shadow:0 16px 60px rgba(251,191,36,.7); }
+.card-jungla  { background:linear-gradient(160deg,#052e16,#14532d 60%,#052e16); border-color:#4ade80; box-shadow:0 8px 40px rgba(74,222,128,.4); }
+.card-jungla:hover  { box-shadow:0 16px 60px rgba(74,222,128,.7); }
+.card-galaxia { background:linear-gradient(160deg,#0a0a1f,#111827 60%,#000); border-color:#38bdf8; box-shadow:0 8px 40px rgba(56,189,248,.4); }
+.card-galaxia:hover { box-shadow:0 16px 60px rgba(56,189,248,.7); }
+.card-barca   { background:linear-gradient(160deg,#004d98,#7a0a3a 60%,#a50044); border-color:#edbb00; box-shadow:0 8px 40px rgba(237,187,0,.4); }
+.card-barca:hover   { box-shadow:0 16px 60px rgba(237,187,0,.7); }
 .card-avatar { font-size:72px; display:block; margin-bottom:12px; animation:avatarFloat 3s ease-in-out infinite; }
 @keyframes avatarFloat { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)} }
 .card-name { font-family:'Press Start 2P',monospace; font-size:15px; margin-bottom:8px; }
-.card-hector .card-name { color:#c084fc; }
-.card-gael .card-name { color:#4ade80; }
+.card-arcade  .card-name { color:#fbbf24; }
+.card-jungla  .card-name { color:#4ade80; }
+.card-galaxia .card-name { color:#7dd3fc; }
+.card-barca   .card-name { color:#edbb00; }
 .card-theme { font-family:'Fredoka One',sans-serif; font-size:12px; color:rgba(255,255,255,.5); margin-bottom:16px; }
 .card-stats { background:rgba(0,0,0,.4); border-radius:10px; padding:8px 12px; font-family:'Press Start 2P',monospace; font-size:7px; line-height:1.8; color:rgba(255,255,255,.7); text-align:left; }
 .card-badge { position:absolute; top:-10px; right:-10px; font-size:28px; filter:drop-shadow(0 2px 8px rgba(0,0,0,.6)); }
 
 /* ── GAME ── */
 #screenGame { padding:12px; padding-bottom:70px; justify-content:flex-start; }
-.theme-hector { background:linear-gradient(180deg,#1a0a3a,#2d0a4a 40%,#3d1a00 70%,#5a2800); }
-.theme-hector .ground-strip { background:repeating-linear-gradient(90deg,#7b2d00 0,#7b2d00 62px,#5a1f00 62px,#5a1f00 64px); border-top:4px solid #a83800; }
-.theme-gael { background:linear-gradient(180deg,#0a2a0a,#0d3d0d 40%,#1a5a0a 70%,#2d7a0a); }
-.theme-gael .ground-strip { background:repeating-linear-gradient(90deg,#2d5a00 0,#2d5a00 62px,#1a3d00 62px,#1a3d00 64px); border-top:4px solid #4a8a00; }
+/* Variables por tema (cascadean a juego y a la pantalla de victoria) */
+.theme-arcade  { --th-accent:#fbbf24; --th-accent2:#ef4444; --th-timer-bg:#b45309; --th-timer-border:#f59e0b; --th-timer-dark:#7c2d12; --th-ex-bg:rgba(180,83,9,.25); --th-ex-border:rgba(245,158,11,.5); --th-cat-bg:#b45309; --th-cat-fg:#fde68a; --th-ground:repeating-linear-gradient(90deg,#7b2d00 0,#7b2d00 62px,#5a1f00 62px,#5a1f00 64px); --th-ground-top:#a83800; --th-progress:linear-gradient(90deg,#f59e0b,#ef4444); }
+.theme-jungla  { --th-accent:#4ade80; --th-accent2:#facc15; --th-timer-bg:#166534; --th-timer-border:#15803d; --th-timer-dark:#14532d; --th-ex-bg:rgba(0,80,20,.35); --th-ex-border:rgba(74,222,128,.5); --th-cat-bg:#166534; --th-cat-fg:#bbf7d0; --th-ground:repeating-linear-gradient(90deg,#2d5a00 0,#2d5a00 62px,#1a3d00 62px,#1a3d00 64px); --th-ground-top:#4a8a00; --th-progress:linear-gradient(90deg,#166534,#4ade80); }
+.theme-galaxia { --th-accent:#facc15; --th-accent2:#22d3ee; --th-timer-bg:#0b1220; --th-timer-border:#38bdf8; --th-timer-dark:#0f2440; --th-ex-bg:rgba(34,211,238,.12); --th-ex-border:rgba(56,189,248,.5); --th-cat-bg:#155e75; --th-cat-fg:#cffafe; --th-ground:repeating-linear-gradient(90deg,#1f2937 0,#1f2937 62px,#111827 62px,#111827 64px); --th-ground-top:#4b5563; --th-progress:linear-gradient(90deg,#22d3ee,#facc15); }
+.theme-barca   { --th-accent:#edbb00; --th-accent2:#a50044; --th-timer-bg:#004d98; --th-timer-border:#edbb00; --th-timer-dark:#00305f; --th-ex-bg:rgba(165,0,68,.25); --th-ex-border:rgba(0,77,152,.6); --th-cat-bg:#004d98; --th-cat-fg:#cfe3ff; --th-ground:repeating-linear-gradient(90deg,#1a7a1a 0,#1a7a1a 62px,#0f5a0f 62px,#0f5a0f 64px); --th-ground-top:#2ecc71; --th-progress:linear-gradient(90deg,#004d98,#a50044); }
+
+/* Fondo de pantalla por tema */
+#screenGame.theme-arcade  { background:linear-gradient(180deg,#1e3a8a,#2563eb 38%,#5a2800 72%,#7b3f00); }
+#screenGame.theme-jungla  { background:linear-gradient(180deg,#052e16,#0d3d0d 40%,#1a5a0a 70%,#2d7a0a); }
+#screenGame.theme-galaxia { background:linear-gradient(180deg,#000000,#0a0a1f 45%,#050510 72%,#0b0b14); }
+#screenGame.theme-barca   { background:linear-gradient(180deg,#004d98,#7a0a3a 48%,#a50044 74%,#5a0024); }
+
+#screenGame .ground-strip { background:var(--th-ground); border-top:4px solid var(--th-ground-top); }
 .ground-strip { position:fixed; bottom:0; left:0; width:100%; height:60px; z-index:5; }
 .bg-deco { position:fixed; pointer-events:none; z-index:1; font-size:40px; opacity:.07; animation:decoFloat linear infinite; }
 @keyframes decoFloat { 0%{transform:translateY(100vh) rotate(0deg);opacity:0} 10%{opacity:.07} 90%{opacity:.07} 100%{transform:translateY(-120px) rotate(360deg);opacity:0} }
 
 /* ── HUD ── */
 .hud { width:100%; max-width:480px; background:rgba(0,0,0,.7); border:2px solid; border-radius:14px; padding:8px 16px; display:flex; gap:16px; align-items:center; justify-content:space-between; flex-wrap:wrap; margin-bottom:10px; position:relative; z-index:10; }
-.theme-hector .hud { border-color:#a855f7; }
-.theme-gael .hud { border-color:#4ade80; }
+#screenGame .hud { border-color:var(--th-accent); }
 .hud-item { display:flex; flex-direction:column; align-items:center; }
 .hud-label { font-family:'Press Start 2P',monospace; font-size:6px; color:rgba(255,255,255,.5); margin-bottom:2px; }
 .hud-val { font-family:'Press Start 2P',monospace; font-size:11px; color:white; }
@@ -63,16 +77,13 @@ body { font-family:'Nunito',sans-serif; min-height:100vh; overflow-x:hidden; bac
 .player-banner { display:flex; align-items:center; gap:10px; margin-bottom:8px; position:relative; z-index:10; }
 .banner-avatar { font-size:36px; }
 .banner-name { font-family:'Press Start 2P',monospace; font-size:13px; }
-.theme-hector .banner-name { color:#c084fc; }
-.theme-gael .banner-name { color:#4ade80; }
+#screenGame .banner-name { color:var(--th-accent); }
 
 /* ── EXERCISE BOX ── */
 .exercise-box { width:100%; max-width:480px; border-radius:14px; padding:12px 18px; margin-bottom:10px; position:relative; z-index:10; border:2px solid; min-height:60px; display:flex; align-items:center; justify-content:center; transition:opacity .3s; }
-.theme-hector .exercise-box { background:rgba(100,0,180,.25); border-color:rgba(168,85,247,.5); }
-.theme-gael .exercise-box { background:rgba(0,80,20,.35); border-color:rgba(74,222,128,.5); }
+#screenGame .exercise-box { background:var(--th-ex-bg); border-color:var(--th-ex-border); }
 .exercise-category { position:absolute; top:-10px; left:14px; font-family:'Press Start 2P',monospace; font-size:7px; padding:2px 8px; border-radius:6px; }
-.theme-hector .exercise-category { background:#7c3aed; color:#e9d5ff; }
-.theme-gael .exercise-category { background:#166534; color:#bbf7d0; }
+#screenGame .exercise-category { background:var(--th-cat-bg); color:var(--th-cat-fg); }
 .exercise-text { font-family:'Fredoka One',sans-serif; font-size:clamp(13px,3.5vw,17px); color:white; text-align:center; line-height:1.4; }
 
 /* ── TIMER ── */
@@ -80,8 +91,7 @@ body { font-family:'Nunito',sans-serif; min-height:100vh; overflow-x:hidden; bac
 .timer-block { width:180px; height:180px; border-radius:16px; display:flex; flex-direction:column; align-items:center; justify-content:center; border:6px solid; box-shadow:inset -5px -5px 0 rgba(0,0,0,.3),5px 5px 0 rgba(0,0,0,.4); transition:transform .1s; position:relative; overflow:hidden; }
 .timer-block::before { content:''; position:absolute; top:-50%; left:-50%; width:200%; height:200%; background:radial-gradient(circle,rgba(255,255,255,.08),transparent 60%); pointer-events:none; }
 .timer-block:active { transform:scale(.97); }
-.theme-hector .timer-block { background:#3d0080; border-color:#7c3aed; border-bottom-color:#4c1d95; border-right-color:#4c1d95; }
-.theme-gael .timer-block { background:#166534; border-color:#15803d; border-bottom-color:#14532d; border-right-color:#14532d; }
+#screenGame .timer-block { background:var(--th-timer-bg); border-color:var(--th-timer-border); border-bottom-color:var(--th-timer-dark); border-right-color:var(--th-timer-dark); }
 .timer-block.bump { animation:blockBump .35s ease; }
 @keyframes blockBump { 0%{transform:translateY(0)} 30%{transform:translateY(-20px)} 60%{transform:translateY(-10px)} 100%{transform:translateY(0)} }
 .timer-question { font-family:'Press Start 2P',monospace; font-size:50px; color:var(--gold); text-shadow:3px 3px 0 #000; }
@@ -94,8 +104,7 @@ body { font-family:'Nunito',sans-serif; min-height:100vh; overflow-x:hidden; bac
 .progress-wrap { width:100%; max-width:480px; margin:8px 0; position:relative; z-index:10; }
 .progress-bg { height:18px; background:rgba(0,0,0,.5); border-radius:10px; border:2px solid rgba(255,255,255,.15); overflow:hidden; }
 .progress-fill { height:100%; border-radius:8px; transition:width 1s linear; position:relative; }
-.theme-hector .progress-fill { background:linear-gradient(90deg,#7c3aed,#c084fc); }
-.theme-gael .progress-fill { background:linear-gradient(90deg,#166534,#4ade80); }
+#screenGame .progress-fill { background:var(--th-progress); }
 .progress-fill::after { content:''; position:absolute; top:0; right:0; width:30px; height:100%; background:rgba(255,255,255,.3); animation:progressShine 1.2s infinite; }
 @keyframes progressShine { from{opacity:0} 50%{opacity:1} to{opacity:0} }
 
@@ -107,14 +116,12 @@ body { font-family:'Nunito',sans-serif; min-height:100vh; overflow-x:hidden; bac
 
 /* ── SETUP BOX ── */
 .setup-box { width:100%; max-width:420px; background:rgba(0,0,0,.6); border:2px solid; border-radius:16px; padding:16px; margin-bottom:10px; position:relative; z-index:10; }
-.theme-hector .setup-box { border-color:rgba(168,85,247,.5); }
-.theme-gael .setup-box { border-color:rgba(74,222,128,.4); }
+#screenGame .setup-box { border-color:var(--th-ex-border); }
 .setup-section-title { font-family:'Press Start 2P',monospace; font-size:8px; color:rgba(255,255,255,.5); margin-bottom:8px; margin-top:12px; }
 .setup-section-title:first-child { margin-top:0; }
 .dur-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:6px; margin-bottom:4px; }
 .dur-btn { font-family:'Press Start 2P',monospace; font-size:8px; padding:9px 4px; background:rgba(0,0,0,.4); border:2px solid rgba(255,255,255,.2); border-radius:8px; color:rgba(255,255,255,.7); cursor:pointer; transition:all .15s; text-align:center; }
-.theme-hector .dur-btn.active,.theme-hector .dur-btn:hover { background:#7c3aed; border-color:#c084fc; color:white; }
-.theme-gael .dur-btn.active,.theme-gael .dur-btn:hover { background:#166534; border-color:#4ade80; color:white; }
+#screenGame .dur-btn.active, #screenGame .dur-btn:hover { background:var(--th-cat-bg); border-color:var(--th-accent); color:#fff; }
 .voice-status { font-family:'Press Start 2P',monospace; font-size:8px; padding:8px 12px; border-radius:8px; border:2px solid; background:rgba(0,0,0,.4); display:inline-block; }
 .voice-status.ok { border-color:var(--green); color:var(--green); }
 .voice-status.loading { border-color:var(--gold); color:var(--gold); }
@@ -123,8 +130,7 @@ body { font-family:'Nunito',sans-serif; min-height:100vh; overflow-x:hidden; bac
 /* ── CAMERA ── */
 .camera-row { display:flex; gap:8px; align-items:center; }
 .cam-preview { width:100px; height:75px; border-radius:8px; overflow:hidden; border:2px solid; position:relative; background:#000; flex-shrink:0; }
-.theme-hector .cam-preview { border-color:#7c3aed; }
-.theme-gael .cam-preview { border-color:#15803d; }
+#screenGame .cam-preview { border-color:var(--th-timer-border); }
 #cameraFeed { width:100%; height:100%; object-fit:cover; transform:scaleX(-1); }
 .cam-overlay { position:absolute; inset:0; border-radius:6px; border:3px solid transparent; transition:border-color .3s; }
 .cam-overlay.present { border-color:var(--green); }
@@ -151,11 +157,9 @@ body { font-family:'Nunito',sans-serif; min-height:100vh; overflow-x:hidden; bac
 .victory-trophy { font-size:90px; animation:trophySpin 2s ease-in-out infinite; margin-bottom:12px; }
 @keyframes trophySpin { 0%,100%{transform:scale(1) rotate(-5deg)} 50%{transform:scale(1.1) rotate(5deg)} }
 .victory-title { font-family:'Press Start 2P',monospace; font-size:clamp(16px,5vw,28px); animation:titlePulse 1s infinite alternate; margin-bottom:16px; }
-.theme-hector .victory-title { color:#c084fc; }
-.theme-gael .victory-title { color:#4ade80; }
+.victory-overlay .victory-title { color:var(--th-accent); }
 .victory-card { background:rgba(0,0,0,.55); border:2px solid; border-radius:16px; padding:16px 24px; margin-bottom:16px; font-family:'Press Start 2P',monospace; font-size:10px; line-height:2.2; color:white; text-align:left; min-width:240px; }
-.theme-hector .victory-card { border-color:#7c3aed; }
-.theme-gael .victory-card { border-color:#15803d; }
+.victory-overlay .victory-card { border-color:var(--th-timer-border); }
 .victory-rewards-row { font-size:36px; letter-spacing:6px; margin-bottom:16px; }
 
 /* ── LOG ── */
@@ -164,8 +168,10 @@ body { font-family:'Nunito',sans-serif; min-height:100vh; overflow-x:hidden; bac
 .log-subtitle { font-family:'Fredoka One',sans-serif; font-size:15px; color:rgba(255,255,255,.4); margin-bottom:24px; }
 .log-tabs { display:flex; gap:8px; margin-bottom:16px; flex-wrap:wrap; justify-content:center; }
 .log-tab { font-family:'Press Start 2P',monospace; font-size:9px; padding:10px 16px; border-radius:10px; cursor:pointer; border:2px solid transparent; transition:all .15s; background:rgba(255,255,255,.05); color:rgba(255,255,255,.5); }
-.log-tab.active-hector { background:rgba(124,58,237,.3); border-color:#7c3aed; color:#c084fc; }
-.log-tab.active-gael { background:rgba(22,101,52,.3); border-color:#15803d; color:#4ade80; }
+.log-tab.active-arcade  { background:rgba(245,158,11,.3); border-color:#f59e0b; color:#fcd34d; }
+.log-tab.active-jungla  { background:rgba(22,101,52,.3); border-color:#15803d; color:#4ade80; }
+.log-tab.active-galaxia { background:rgba(56,189,248,.3); border-color:#38bdf8; color:#7dd3fc; }
+.log-tab.active-barca   { background:rgba(165,0,68,.3); border-color:#a50044; color:#ffb3d1; }
 .log-content { width:100%; max-width:500px; max-height:55vh; overflow-y:auto; padding-right:4px; }
 .log-content::-webkit-scrollbar { width:4px; }
 .log-content::-webkit-scrollbar-thumb { background:rgba(255,255,255,.2); border-radius:4px; }
@@ -173,15 +179,19 @@ body { font-family:'Nunito',sans-serif; min-height:100vh; overflow-x:hidden; bac
 .log-entry-header { display:flex; align-items:center; justify-content:space-between; margin-bottom:6px; }
 .log-date { font-family:'Press Start 2P',monospace; font-size:7px; color:rgba(255,255,255,.4); }
 .log-score-badge { font-family:'Press Start 2P',monospace; font-size:9px; padding:3px 8px; border-radius:6px; }
-.log-score-hector { background:rgba(124,58,237,.4); color:#c084fc; }
-.log-score-gael { background:rgba(22,101,52,.4); color:#4ade80; }
+.log-score-arcade  { background:rgba(245,158,11,.4); color:#fcd34d; }
+.log-score-jungla  { background:rgba(22,101,52,.4); color:#4ade80; }
+.log-score-galaxia { background:rgba(56,189,248,.4); color:#7dd3fc; }
+.log-score-barca   { background:rgba(165,0,68,.4); color:#ffb3d1; }
 .log-row { font-family:'Fredoka One',sans-serif; font-size:13px; color:rgba(255,255,255,.7); margin-bottom:3px; }
 .log-rewards-row { font-size:18px; letter-spacing:3px; margin-top:4px; }
 .log-empty { font-family:'Fredoka One',sans-serif; font-size:16px; color:rgba(255,255,255,.3); text-align:center; padding:40px 0; }
 .log-total-strip { width:100%; max-width:500px; display:flex; gap:10px; justify-content:center; flex-wrap:wrap; margin-bottom:16px; }
 .total-chip { font-family:'Press Start 2P',monospace; font-size:8px; padding:8px 14px; border-radius:10px; color:white; }
-.chip-hector { background:rgba(124,58,237,.4); border:1px solid #7c3aed; }
-.chip-gael { background:rgba(22,101,52,.4); border:1px solid #15803d; }
+.chip-arcade  { background:rgba(245,158,11,.4); border:1px solid #f59e0b; }
+.chip-jungla  { background:rgba(22,101,52,.4); border:1px solid #15803d; }
+.chip-galaxia { background:rgba(56,189,248,.4); border:1px solid #38bdf8; }
+.chip-barca   { background:rgba(165,0,68,.4); border:1px solid #a50044; }
 
 /* ── POPUPS ── */
 .reward-popup { position:fixed; top:50%; left:50%; transform:translate(-50%,-50%) scale(0); z-index:500; text-align:center; pointer-events:none; transition:transform .4s cubic-bezier(.175,.885,.32,1.775); }
@@ -211,21 +221,35 @@ body { font-family:'Nunito',sans-serif; min-height:100vh; overflow-x:hidden; bac
 <!-- SELECT -->
 <div class="screen" id="screenSelect">
   <div class="select-title">🏥 TERAPIA<br>MIOFACIAL</div>
-  <div class="select-subtitle">¿Quién juega hoy?</div>
+  <div class="select-subtitle">Elige tu aventura 🎮</div>
   <div class="players-grid">
-    <div class="player-card card-hector" onclick="selectPlayer('hector')">
-      <div class="card-badge">🎮</div>
+    <div class="player-card card-arcade" onclick="selectPlayer('arcade')">
+      <div class="card-badge">🕹️</div>
       <span class="card-avatar">🍄</span>
-      <div class="card-name">HÉCTOR</div>
-      <div class="card-theme">Mario · Pokémon · Yoshi</div>
-      <div class="card-stats" id="hectorCardStats"><div>PARTIDAS: 0</div><div>RÉCORD: 0 pts</div><div>RACHA MÁX: 0s</div></div>
+      <div class="card-name">ARCADE 80s</div>
+      <div class="card-theme">Videojuegos de los 80</div>
+      <div class="card-stats" id="arcadeCardStats"><div>PARTIDAS: 0</div><div>RÉCORD: 0 pts</div><div>RACHA MÁX: 0:00</div></div>
     </div>
-    <div class="player-card card-gael" onclick="selectPlayer('gael')">
+    <div class="player-card card-jungla" onclick="selectPlayer('jungla')">
       <div class="card-badge">🌿</div>
       <span class="card-avatar">🦁</span>
-      <div class="card-name">GAEL</div>
-      <div class="card-theme">Selva · Granja · Naturaleza</div>
-      <div class="card-stats" id="gaelCardStats"><div>PARTIDAS: 0</div><div>RÉCORD: 0 pts</div><div>RACHA MÁX: 0s</div></div>
+      <div class="card-name">LA SELVA</div>
+      <div class="card-theme">Animales de la jungla</div>
+      <div class="card-stats" id="junglaCardStats"><div>PARTIDAS: 0</div><div>RÉCORD: 0 pts</div><div>RACHA MÁX: 0:00</div></div>
+    </div>
+    <div class="player-card card-galaxia" onclick="selectPlayer('galaxia')">
+      <div class="card-badge">🛸</div>
+      <span class="card-avatar">🚀</span>
+      <div class="card-name">GALAXIA</div>
+      <div class="card-theme">Aventura espacial</div>
+      <div class="card-stats" id="galaxiaCardStats"><div>PARTIDAS: 0</div><div>RÉCORD: 0 pts</div><div>RACHA MÁX: 0:00</div></div>
+    </div>
+    <div class="player-card card-barca" onclick="selectPlayer('barca')">
+      <div class="card-badge">🏆</div>
+      <span class="card-avatar">⚽</span>
+      <div class="card-name">FC BARCELONA</div>
+      <div class="card-theme">¡Fuerza Barça!</div>
+      <div class="card-stats" id="barcaCardStats"><div>PARTIDAS: 0</div><div>RÉCORD: 0 pts</div><div>RACHA MÁX: 0:00</div></div>
     </div>
   </div>
 </div>
@@ -246,7 +270,7 @@ body { font-family:'Nunito',sans-serif; min-height:100vh; overflow-x:hidden; bac
   </div>
   <div class="player-banner">
     <div class="banner-avatar" id="bannerAvatar">🍄</div>
-    <div class="banner-name" id="bannerName">HÉCTOR</div>
+    <div class="banner-name" id="bannerName">ARCADE 80s</div>
   </div>
   <div class="exercise-box hidden" id="exerciseBox">
     <div class="exercise-category" id="exerciseCat">LENGUA</div>
@@ -301,8 +325,10 @@ body { font-family:'Nunito',sans-serif; min-height:100vh; overflow-x:hidden; bac
   <div class="log-subtitle">Historial de sesiones</div>
   <div class="log-total-strip" id="logTotals"></div>
   <div class="log-tabs">
-    <div class="log-tab" id="tabHector" onclick="showLog('hector')">🍄 HÉCTOR</div>
-    <div class="log-tab" id="tabGael"   onclick="showLog('gael')">🦁 GAEL</div>
+    <div class="log-tab" id="tab_arcade"  onclick="showLog('arcade')">🍄 ARCADE</div>
+    <div class="log-tab" id="tab_jungla"  onclick="showLog('jungla')">🦁 SELVA</div>
+    <div class="log-tab" id="tab_galaxia" onclick="showLog('galaxia')">🚀 GALAXIA</div>
+    <div class="log-tab" id="tab_barca"   onclick="showLog('barca')">⚽ BARÇA</div>
   </div>
   <div class="log-content" id="logContent"></div>
 </div>
@@ -442,55 +468,103 @@ function testVoice() {
 // DATA
 // ═══════════════════════════════════════
 const PROFILES = {
-  hector: {
-    name:'HÉCTOR', avatar:'🍄', lifeIcon:'❤️', scoreColor:'#c084fc',
-    logClass:'log-score-hector', tabActive:'active-hector',
-    bgDecos:['🍄','⭐','🎮','🟡','🐢','🔵','🌟','🪙','🦕','❤️','🎯','🏆'],
+  arcade: {
+    name:'ARCADE 80s', avatar:'🍄', lifeIcon:'❤️', scoreColor:'#fbbf24',
+    logClass:'log-score-arcade', tabActive:'active-arcade',
+    bgDecos:['🍄','⭐','🪙','🐢','🌟','🎮','🕹️','👾','🟢','❤️','🏁','🔥'],
     rewards:[
       {emoji:'🍄',text:'¡Champiñón!',pts:100},
       {emoji:'⭐',text:'¡Estrella!',pts:200},
-      {emoji:'🟡',text:'¡Moneda!',pts:150},
-      {emoji:'🐢',text:'¡Koopa!',pts:100},
+      {emoji:'🪙',text:'¡Moneda!',pts:150},
+      {emoji:'🐢',text:'¡Caparazón!',pts:100},
       {emoji:'🌟',text:'¡Super Estrella!',pts:500},
-      {emoji:'🦕',text:'¡Yoshi!',pts:300},
-      {emoji:'🎮',text:'¡1-UP!',pts:250},
-      {emoji:'🏆',text:'¡Campeón!',pts:400},
-      {emoji:'🔵',text:'¡Pokéball!',pts:200},
-      {emoji:'⚡',text:'¡Pikachu!',pts:350},
+      {emoji:'🎮',text:'¡Vida extra!',pts:250},
+      {emoji:'🔥',text:'¡Flor de fuego!',pts:300},
+      {emoji:'🏆',text:'¡Récord!',pts:400},
+      {emoji:'👾',text:'¡Marciano!',pts:200},
+      {emoji:'⚡',text:'¡Rayo!',pts:350},
     ],
     rewardPhrases:{
-      '🍄':'¡Champiñón! ¡Creciste!','⭐':'¡Estrella de poder! ¡Imparable!',
-      '🟡':'¡Moneda de oro! ¡Sigue así!','🐢':'¡Caparazón de Koopa!',
-      '🌟':'¡Super Estrella! ¡Eres invencible!','🦕':'¡Yoshi está contigo!',
-      '🎮':'¡Una vida extra! ¡Un UP!','🏆':'¡Campeón de campeones!',
-      '🔵':'¡Pokéball capturada!','⚡':'¡Pika Pika! ¡Fantástico!',
+      '🍄':'¡Champiñón! ¡Has crecido!','⭐':'¡Estrella! ¡Imparable!',
+      '🪙':'¡Moneda! ¡Sigue sumando!','🐢':'¡Caparazón conseguido!',
+      '🌟':'¡Super estrella! ¡Invencible!','🎮':'¡Vida extra! ¡Un UP!',
+      '🔥':'¡Flor de fuego! ¡A tope!','🏆':'¡Nuevo récord!',
+      '👾':'¡Marciano derrotado!','⚡':'¡Rayo de energía!',
     }
   },
-  gael: {
-    name:'GAEL', avatar:'🦁', lifeIcon:'🌿', scoreColor:'#4ade80',
-    logClass:'log-score-gael', tabActive:'active-gael',
-    bgDecos:['🦁','🐘','🦒','🦓','🐄','🐷','🐔','🦜','🌿','🌺','🍃','🌴'],
+  jungla: {
+    name:'LA SELVA', avatar:'🦁', lifeIcon:'🌿', scoreColor:'#4ade80',
+    logClass:'log-score-jungla', tabActive:'active-jungla',
+    bgDecos:['🦁','🐘','🦒','🐵','🐯','🦜','🌿','🌴','🍃','🌺','🐍','🦓'],
     rewards:[
       {emoji:'🦁',text:'¡León!',pts:200},
       {emoji:'🐘',text:'¡Elefante!',pts:150},
       {emoji:'🦒',text:'¡Jirafa!',pts:100},
-      {emoji:'🐷',text:'¡Cerdito!',pts:100},
-      {emoji:'🐄',text:'¡Vaca!',pts:100},
+      {emoji:'🐵',text:'¡Mono!',pts:100},
+      {emoji:'🐯',text:'¡Tigre!',pts:200},
       {emoji:'🦜',text:'¡Loro!',pts:150},
       {emoji:'🌟',text:'¡Estrella!',pts:300},
       {emoji:'🦓',text:'¡Cebra!',pts:200},
-      {emoji:'🐔',text:'¡Pollito!',pts:100},
+      {emoji:'🐍',text:'¡Serpiente!',pts:100},
       {emoji:'🌺',text:'¡Flor!',pts:250},
     ],
     rewardPhrases:{
       '🦁':'¡Rugido de León! ¡Qué valiente!','🐘':'¡El elefante te da suerte!',
-      '🦒':'¡La jirafa te ve desde lejos!','🐷':'¡Oink oink! ¡Bien hecho!',
-      '🐄':'¡La vaca dice mu! ¡Genial!','🦜':'¡El loro dice campeón!',
+      '🦒':'¡La jirafa te ve desde lejos!','🐵':'¡El mono salta de alegría!',
+      '🐯':'¡El tigre es muy fuerte!','🦜':'¡El loro dice campeón!',
       '🌟':'¡Una estrella de la selva!','🦓':'¡Las rayas de la cebra son tuyas!',
-      '🐔':'¡El pollito canta por ti!','🌺':'¡Una flor de la selva!',
+      '🐍':'¡La serpiente te felicita!','🌺':'¡Una flor de la selva!',
+    }
+  },
+  galaxia: {
+    name:'GALAXIA', avatar:'🚀', lifeIcon:'⭐', scoreColor:'#facc15',
+    logClass:'log-score-galaxia', tabActive:'active-galaxia',
+    bgDecos:['🚀','🛸','⭐','🌌','🤖','🪐','✨','💫','☄️','🌠','⚡','🔭'],
+    rewards:[
+      {emoji:'🚀',text:'¡Nave!',pts:200},
+      {emoji:'⭐',text:'¡Estrella!',pts:200},
+      {emoji:'🪐',text:'¡Planeta!',pts:150},
+      {emoji:'🤖',text:'¡Robot!',pts:250},
+      {emoji:'🛸',text:'¡Platillo!',pts:200},
+      {emoji:'🌌',text:'¡Galaxia!',pts:300},
+      {emoji:'☄️',text:'¡Cometa!',pts:350},
+      {emoji:'✨',text:'¡Cristal!',pts:150},
+      {emoji:'⚡',text:'¡Energía!',pts:400},
+      {emoji:'🏆',text:'¡Héroe!',pts:500},
+    ],
+    rewardPhrases:{
+      '🚀':'¡Despegue! ¡A la galaxia!','⭐':'¡Estrella capturada!',
+      '🪐':'¡Planeta conquistado!','🤖':'¡Robot aliado!',
+      '🛸':'¡Nave enemiga esquivada!','🌌':'¡Dominas la galaxia!',
+      '☄️':'¡Cometa veloz!','✨':'¡Cristal de energía!',
+      '⚡':'¡La fuerza crece en ti!','🏆':'¡Héroe galáctico!',
+    }
+  },
+  barca: {
+    name:'FC BARCELONA', avatar:'⚽', lifeIcon:'❤️', scoreColor:'#edbb00',
+    logClass:'log-score-barca', tabActive:'active-barca',
+    bgDecos:['⚽','🥅','🏆','🔵','🔴','🟡','👟','🏟️','🎽','🚩','⭐','🧤'],
+    rewards:[
+      {emoji:'⚽',text:'¡Gol!',pts:200},
+      {emoji:'🥅',text:'¡Paradón!',pts:150},
+      {emoji:'🏆',text:'¡Trofeo!',pts:400},
+      {emoji:'👟',text:'¡Bota de oro!',pts:350},
+      {emoji:'🎽',text:'¡Camiseta!',pts:100},
+      {emoji:'🚩',text:'¡Córner!',pts:100},
+      {emoji:'⭐',text:'¡Crack!',pts:300},
+      {emoji:'🧤',text:'¡Guante de oro!',pts:250},
+      {emoji:'🏟️',text:'¡Estadio!',pts:200},
+      {emoji:'🥇',text:'¡Campeón!',pts:500},
+    ],
+    rewardPhrases:{
+      '⚽':'¡Goool! ¡Qué crack!','🥅':'¡Paradón de portero!',
+      '🏆':'¡Trofeo a la vitrina!','👟':'¡Bota de oro!',
+      '🎽':'¡Camiseta blaugrana!','🚩':'¡Saca de córner!',
+      '⭐':'¡Eres un crack!','🧤':'¡Guante de oro!',
+      '🏟️':'¡El estadio ruge por ti!','🥇':'¡Campeón de liga!',
     }
   }
-};
+}
 
 const EXERCISE_GROUPS = [
   { cat:'LENGUA · PALADAR', items:[
@@ -536,10 +610,19 @@ EXERCISE_GROUPS.forEach(g => g.items.forEach(([text,icon]) => ALL_EXERCISES.push
 // ═══════════════════════════════════════
 // STATE
 // ═══════════════════════════════════════
-let currentPlayer = 'hector';
-let currentLogTab = 'hector';
-let logData = {hector:[],gael:[]};
-try { const s=localStorage.getItem('miofacialLog'); if(s) logData=JSON.parse(s); } catch(e){}
+let currentPlayer = 'arcade';
+let currentLogTab = 'arcade';
+let logData = {arcade:[],jungla:[],galaxia:[],barca:[]};
+try {
+  const _s=localStorage.getItem('miofacialLog');
+  if(_s){
+    const old=JSON.parse(_s)||{};
+    logData.arcade  = old.arcade  || old.hector || [];   // migra el historial antiguo
+    logData.jungla  = old.jungla  || old.gael   || [];
+    logData.galaxia = old.galaxia || [];
+    logData.barca   = old.barca   || [];
+  }
+} catch(e){}
 
 const G = {
   duration:300, timeLeft:300, totalTime:300,
@@ -582,7 +665,7 @@ function selectPlayer(p) {
 }
 function applyTheme() {
   const g=document.getElementById('screenGame');
-  g.classList.remove('theme-hector','theme-gael');
+  g.classList.remove('theme-arcade','theme-jungla','theme-galaxia','theme-barca');
   g.classList.add('theme-'+currentPlayer);
 }
 function buildBgDecos() {
@@ -599,13 +682,12 @@ function buildBgDecos() {
   }
 }
 function refreshCardStats() {
-  ['hector','gael'].forEach(p=>{
-    const e=logData[p];
-    const sessions=e.length;
+  Object.keys(PROFILES).forEach(k=>{
+    const e=logData[k]||[];
     const record=e.reduce((m,x)=>Math.max(m,x.score),0);
     const maxStreak=e.reduce((m,x)=>Math.max(m,x.streak),0);
-    document.getElementById(p+'CardStats').innerHTML=
-      `<div>PARTIDAS: ${sessions}</div><div>RÉCORD: ${record} pts</div><div>RACHA MÁX: ${fmtTime(maxStreak)}</div>`;
+    const el=document.getElementById(k+'CardStats');
+    if(el) el.innerHTML=`<div>PARTIDAS: ${e.length}</div><div>RÉCORD: ${record} pts</div><div>RACHA MÁX: ${fmtTime(maxStreak)}</div>`;
   });
 }
 refreshCardStats();
@@ -801,7 +883,7 @@ function victory() {
   refreshCardStats();
 
   const p=PROFILES[currentPlayer];
-  document.getElementById('victoryTitle').textContent='¡'+p.name+' CAMPEÓN!';
+  document.getElementById('victoryTitle').textContent='¡CAMPEÓN!';
   document.getElementById('victoryOverlay').className='overlay victory-overlay theme-'+currentPlayer;
   document.getElementById('victoryTrophy').textContent=p.avatar;
   document.getElementById('victoryCard').innerHTML=
@@ -824,13 +906,10 @@ function updateTimerDisplay(){
 }
 function updateProgressBar(){
   const pct=(G.timeLeft/G.totalTime)*100;
-  document.getElementById('progressFill').style.width=pct+'%';
   const f=document.getElementById('progressFill');
-  if(currentPlayer==='hector'){
-    f.style.background=pct<25?'linear-gradient(90deg,#7c3aed,#e74c3c)':'linear-gradient(90deg,#7c3aed,#c084fc)';
-  } else {
-    f.style.background=pct<25?'linear-gradient(90deg,#166534,#e74c3c)':pct<50?'linear-gradient(90deg,#166534,#facc15)':'linear-gradient(90deg,#166534,#4ade80)';
-  }
+  f.style.width=pct+'%';
+  // <25% restante: aviso rojo; si no, deja el gradiente del tema (CSS var)
+  f.style.background = pct<25 ? 'linear-gradient(90deg,#7a1f1f,#e74c3c)' : '';
 }
 function updateUI(){
   document.getElementById('scoreVal').textContent=G.score;
@@ -917,18 +996,20 @@ function checkPresence(){
 // LOGBOOK
 // ═══════════════════════════════════════
 function renderLogTotals(){
-  const h=logData.hector,g2=logData.gael;
-  document.getElementById('logTotals').innerHTML=
-    `<div class="total-chip chip-hector">🍄 HÉCTOR · ${h.length} sesiones · ${h.reduce((s,e)=>s+e.score,0)} pts</div>`+
-    `<div class="total-chip chip-gael">🦁 GAEL · ${g2.length} sesiones · ${g2.reduce((s,e)=>s+e.score,0)} pts</div>`;
+  document.getElementById('logTotals').innerHTML=Object.keys(PROFILES).map(k=>{
+    const e=logData[k]||[]; const p=PROFILES[k];
+    return `<div class="total-chip chip-${k}">${p.avatar} ${p.name} · ${e.length} sesiones · ${e.reduce((s,x)=>s+x.score,0)} pts</div>`;
+  }).join('');
 }
 function showLog(player){
   currentLogTab=player;
-  document.getElementById('tabHector').className='log-tab'+(player==='hector'?' active-hector':'');
-  document.getElementById('tabGael').className  ='log-tab'+(player==='gael' ?' active-gael':'');
-  const entries=logData[player];
+  Object.keys(PROFILES).forEach(k=>{
+    const t=document.getElementById('tab_'+k);
+    if(t) t.className='log-tab'+(k===player?' active-'+k:'');
+  });
+  const entries=logData[player]||[];
   const content=document.getElementById('logContent');
-  if(!entries||entries.length===0){
+  if(entries.length===0){
     content.innerHTML=`<div class="log-empty">${PROFILES[player].avatar}<br><br>Sin sesiones aún.<br>¡A entrenar!</div>`;
     return;
   }
