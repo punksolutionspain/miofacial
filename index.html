@@ -254,11 +254,10 @@ body { font-family:'Nunito',sans-serif; min-height:100vh; overflow-x:hidden; bac
   </div>
   <div class="setup-box" id="setupBox">
     <div class="setup-section-title">⏱ DURACIÓN</div>
-    <div class="dur-grid">
-      <div class="dur-btn active" data-dur="30"  onclick="setDur(30)">30s</div>
-      <div class="dur-btn"        data-dur="60"  onclick="setDur(60)">1min</div>
-      <div class="dur-btn"        data-dur="90"  onclick="setDur(90)">1:30</div>
-      <div class="dur-btn"        data-dur="120" onclick="setDur(120)">2min</div>
+    <div class="dur-grid" style="grid-template-columns:repeat(3,1fr);">
+      <div class="dur-btn active" data-dur="300"  onclick="setDur(300)">5 min</div>
+      <div class="dur-btn"        data-dur="600"  onclick="setDur(600)">10 min</div>
+      <div class="dur-btn"        data-dur="1200" onclick="setDur(1200)">20 min</div>
     </div>
     <div class="setup-section-title">🔊 VOZ</div>
     <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
@@ -280,7 +279,7 @@ body { font-family:'Nunito',sans-serif; min-height:100vh; overflow-x:hidden; bac
     <div class="timer-block" id="timerBlock">
       <div class="timer-question" id="timerQ">?</div>
       <div class="timer-number hidden" id="timerNum">30</div>
-      <div class="timer-label hidden" id="timerLbl">SEGUNDOS</div>
+      <div class="timer-label hidden" id="timerLbl">TIEMPO</div>
     </div>
   </div>
   <div class="progress-wrap">
@@ -309,7 +308,7 @@ body { font-family:'Nunito',sans-serif; min-height:100vh; overflow-x:hidden; bac
 </div>
 
 <!-- OVERLAYS -->
-<div class="overlay pause-overlay hidden" id="pauseOverlay">
+<div class="overlay pause-overlay hidden" id="pauseOverlay" onclick="togglePause()" style="cursor:pointer;">
   <div class="pause-title">⏸ PAUSA</div>
   <div style="font-family:'Press Start 2P',monospace;font-size:10px;color:rgba(255,255,255,.5);margin-top:16px;">Toca para continuar</div>
 </div>
@@ -543,7 +542,7 @@ let logData = {hector:[],gael:[]};
 try { const s=localStorage.getItem('miofacialLog'); if(s) logData=JSON.parse(s); } catch(e){}
 
 const G = {
-  duration:30, timeLeft:30, totalTime:30,
+  duration:300, timeLeft:300, totalTime:300,
   running:false, paused:false,
   score:0, lives:3, streak:0, level:1, combo:0, maxCombo:0,
   collected:[], interval:null,
@@ -576,7 +575,7 @@ function selectPlayer(p) {
   applyTheme(); buildBgDecos();
   document.getElementById('bannerAvatar').textContent=PROFILES[p].avatar;
   document.getElementById('bannerName').textContent=PROFILES[p].name;
-  G.duration=30; G.timeLeft=30; G.totalTime=30;
+  G.duration=300; G.timeLeft=300; G.totalTime=300;
   updateTimerDisplay(); updateProgressBar();
   showScreen('screenGame');
   loadVoices();
@@ -606,7 +605,7 @@ function refreshCardStats() {
     const record=e.reduce((m,x)=>Math.max(m,x.score),0);
     const maxStreak=e.reduce((m,x)=>Math.max(m,x.streak),0);
     document.getElementById(p+'CardStats').innerHTML=
-      `<div>PARTIDAS: ${sessions}</div><div>RÉCORD: ${record} pts</div><div>RACHA MÁX: ${maxStreak}s</div>`;
+      `<div>PARTIDAS: ${sessions}</div><div>RÉCORD: ${record} pts</div><div>RACHA MÁX: ${fmtTime(maxStreak)}</div>`;
   });
 }
 refreshCardStats();
@@ -806,7 +805,7 @@ function victory() {
   document.getElementById('victoryOverlay').className='overlay victory-overlay theme-'+currentPlayer;
   document.getElementById('victoryTrophy').textContent=p.avatar;
   document.getElementById('victoryCard').innerHTML=
-    `PUNTUACIÓN: ${G.score}<br>VIDAS: ${'❤️'.repeat(Math.max(0,G.lives))}<br>RACHA: ${G.streak}s<br>NIVEL: ${G.level}<br>COMBO MÁX: ${G.maxCombo}`;
+    `PUNTUACIÓN: ${G.score}<br>VIDAS: ${'❤️'.repeat(Math.max(0,G.lives))}<br>RACHA: ${fmtTime(G.streak)}<br>NIVEL: ${G.level}<br>COMBO MÁX: ${G.maxCombo}`;
   document.getElementById('victoryRewards').textContent=G.collected.join('')||p.rewards[0].emoji;
 }
 
@@ -816,7 +815,13 @@ function timerClick() { if(!G.running){startGame();return;} togglePause(); }
 // ═══════════════════════════════════════
 // UI
 // ═══════════════════════════════════════
-function updateTimerDisplay(){ document.getElementById('timerNum').textContent=G.timeLeft; }
+function fmtTime(sec){ const m=Math.floor(sec/60), s=sec%60; return m+':'+String(s).padStart(2,'0'); }
+function updateTimerDisplay(){
+  const txt=fmtTime(G.timeLeft);
+  const el=document.getElementById('timerNum');
+  el.textContent=txt;
+  el.style.fontSize = txt.length>=5 ? '40px' : '48px';
+}
 function updateProgressBar(){
   const pct=(G.timeLeft/G.totalTime)*100;
   document.getElementById('progressFill').style.width=pct+'%';
@@ -933,8 +938,8 @@ function showLog(player){
         <div class="log-date">${e.date} ${e.time}</div>
         <div class="log-score-badge ${PROFILES[player].logClass}">${e.score} pts</div>
       </div>
-      <div class="log-row">⏱ ${e.duration}s &nbsp;·&nbsp; ❤️ ${e.lives} vidas &nbsp;·&nbsp; ⬆️ Nivel ${e.level}</div>
-      <div class="log-row">🔥 Racha ${e.streak}s &nbsp;·&nbsp; ✨ Combo máx ${e.maxCombo}</div>
+      <div class="log-row">⏱ ${fmtTime(e.duration)} &nbsp;·&nbsp; ❤️ ${e.lives} vidas &nbsp;·&nbsp; ⬆️ Nivel ${e.level}</div>
+      <div class="log-row">🔥 Racha ${fmtTime(e.streak)} &nbsp;·&nbsp; ✨ Combo máx ${e.maxCombo}</div>
       <div class="log-rewards-row">${(e.rewards||[]).join('')||PROFILES[player].avatar}</div>
     </div>`).join('');
 }
